@@ -1,0 +1,179 @@
+{
+  "antishock": {
+    "enabled": false
+  }, 
+  "api": {
+    "yandex_export_reginfo_url": "https://export.yandex.com.tr/bar/reginfo-with-quotes.xml?lang=%locale%"
+  }, 
+  "api_host": "api.browser.yandex.com.tr", 
+  "base_host": "yandex.com.tr", 
+  "brand_id": "tb", 
+  "conf_policy_url": "http://legal.yandex.com.tr/confidential/", 
+  "cookies": [
+    {
+      "name": "ybf", 
+      "portal": true, 
+      "url": "yandex.com.tr", 
+      "value": "portal"
+    }
+  ], 
+  "dictionaries": {
+    "download_url": "http://download.cdn.yandex.net/browser/dictionaries/%s.bdic"
+  }, 
+  "disk": {
+    "download_url_mac": "https://webdav.yandex.ru/share/dist/Yandex.Disk.Mac.dmg?root", 
+    "download_url_win": "https://webdav.yandex.ru/share/dist/YandexDiskSetupPackTr.exe?root", 
+    "host": "disk.yandex.com.tr", 
+    "liscence_url": "http://legal.yandex.com.tr/disk_agreement/"
+  }, 
+  "extensions": [
+    {
+      "mergeArray": true
+    }, 
+    {
+      "enabled": true, 
+      "id": "ihhcdinmaceokcdmbddlclfejhadgpgg", 
+      "stable": true
+    }
+  ], 
+  "feedback": {
+    "channel": "release", 
+    "url": "https://browser.yandex.com.tr/feedback/"
+  }, 
+  "interface": {
+    "infobar_logo": "logo_en"
+  }, 
+  "languages": {
+    "accept": "tr,en", 
+    "interface": "tr"
+  }, 
+  "license_url": "http://legal.yandex.com.tr/browser_agreement/", 
+  "notifications": {
+    "sources": "yamail"
+  }, 
+  "pages": {
+    "add_flash_cookie_url": "https://browser.yandex.com.tr/zombie/wp.html", 
+    "help_url": "https://api.browser.yandex.com.tr/redirect/help/", 
+    "net_error_page_url": "http://browser.yandex.com.tr/urlerror/?lang=%locale%&clid=%clid%&url=%url%&error=%error%", 
+    "oauth_host": "oauth.yandex.com.tr", 
+    "passport_host": "passport.yandex.com.tr", 
+    "safe_browsing_url": "https://browser.yandex.com.tr/safebrowsing/", 
+    "search_web_for_image_url": "http://gorsel.yandex.com.tr/yandsearch?rpt=imagecbir&img_url=%image_url%&cbird=2", 
+    "signin_url": "https://browser.yandex.com.tr/sync/?lang=%locale%", 
+    "update_promo_url": "https://browser.yandex.com.tr"
+  }, 
+  "partner_id": "", 
+  "pin_facebook": true, 
+  "prefetch_sites": [
+    "http://yandex.com.tr/", 
+    "http://mail.yandex.com.tr/", 
+    "https://mail.yandex.com.tr/", 
+    "http://market.yandex.com.tr/", 
+    "http://prefetch-maps.yandex.com.tr/", 
+    "http://prefetch-maps.yandex.com/"
+  ], 
+  "search_engines": {
+    "default_id": 15
+  }, 
+  "searchup": {
+    "engines": [
+      15, 
+      2, 
+      3, 
+      1
+    ]
+  }, 
+  "sec_api_host": "sec.api.browser.yandex.com.tr", 
+  "setup_url": "http://download.cdn.yandex.net/browser/tb/browser-setup.arc", 
+  "share_panel_services": [
+    "fb", 
+    "tw"
+  ], 
+  "signature": "c16e3cc3e683630fc6cc27d47b14c9e87d027443f8597f96d4af63e2db1a550a", 
+  "tableau": {
+    "custo_default_wallpaper": "mountains", 
+    "custom_black_list_url": "https://api.browser.yandex.com.tr/dashboard3/blist", 
+    "dashboard_url": "https://api.browser.yandex.com.tr/dashboard3/get/?brandID=tb&scale=0.43", 
+    "default_preset": {
+      "pinned2": {
+        "http://facebook.com": 3, 
+        "http://www.yandex.com.tr": 0
+      }, 
+      "top": [
+        "http://mail.yandex.com.tr", 
+        "https://twitter.com", 
+        "http://harita.yandex.com.tr", 
+        "http://tr.wikipedia.org", 
+        "http://disk.yandex.com.tr", 
+        "http://izlesene.com", 
+        "http://gittigidiyor.com", 
+        "http://dailymotion.com/tr", 
+        "https://youtube.com", 
+        "http://yemeksepeti.com", 
+        "http://hotmail.com", 
+        "http://tureng.com", 
+        "http://turkishairlines.com", 
+        "http://biletix.com", 
+        "http://kariyer.net", 
+        "http://sahibinden.com", 
+        "http://hepsiburada.com", 
+        "http://mynet.com", 
+        "http://tr.msn.com", 
+        "http://haberturk.com", 
+        "http://sabah.com.tr", 
+        "http://hurriyet.com.tr", 
+        "http://milliyet.com.tr", 
+        "http://tatil.com", 
+        "http://beyazperde.com", 
+        "http://ekolay.net", 
+        "https://e-okul.meb.gov.tr", 
+        "http://tdk.gov.tr"
+      ]
+    }, 
+    "default_wallpaper": "1", 
+    "preset_url": "https://api.browser.yandex.com.tr/ntp/get/?brandID=tb", 
+    "suggest_url": "https://api.browser.yandex.com.tr/dashboard-suggest?part=%s&uil=tr", 
+    "wallpapers": [
+      "0", 
+      "1", 
+      "lights", 
+      "tower", 
+      "ship", 
+      "cat", 
+      "flowers", 
+      "sky", 
+      "stones", 
+      "water", 
+      "grass", 
+      "sakura", 
+      "mountains", 
+      "yellow_forest", 
+      "raindrops", 
+      "fir_tree", 
+      "stream", 
+      "sea", 
+      "cloudy", 
+      "web", 
+      "dark_forest"
+    ], 
+    "wallpapers_url": "https://storage.ape.yandex.net/get/browser/TableauBackgrounds/"
+  }, 
+  "translate": {
+    "language_list_url": "https://storage.ape.yandex.net/get/browser/translator/lang_157.js", 
+    "script_url": "https://storage.ape.yandex.net/get/browser/translator/tloader_v145.js", 
+    "security_origin": "https://translate.yandex.net", 
+    "target_languages": "tr"
+  }, 
+  "urls": {
+    "variations": "https://storage.ape.yandex.net/get/browser/experiments/browser.proto"
+  }, 
+  "welcome_page": {
+    "install_url": "https://browser.yandex.com.tr/welcome-install/?lang=%locale%&%clid%&%partner_id%&%banerid%&%old_browser_version%", 
+    "update_url": "https://browser.yandex.com.tr/welcome-update/?lang=%locale%&%clid%&%old_browser_version%", 
+    "version": "2.2"
+  }, 
+  "yandex_search": {
+    "favicon_url": "https://yandex.st/lego/_/rBTjd6UOPk5913OSn5ZQVYMTQWQ.ico", 
+    "name": "Yandex"
+  }
+}
