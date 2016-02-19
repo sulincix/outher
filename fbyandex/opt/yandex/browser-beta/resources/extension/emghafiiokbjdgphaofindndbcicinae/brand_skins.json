@@ -1,0 +1,94 @@
+{
+  "signature": "7d191ee615a6de5897c51939cb0453c32d586bade0545fd2d4afb290fb51ce60", 
+  "skins": [
+    {
+      "id": 0, 
+      "image": "", 
+      "modificators": [
+        "b-page-newtab_transparent"
+      ], 
+      "overlay": "", 
+      "preview": ""
+    }, 
+    {
+      "id": 1, 
+      "image": "", 
+      "modificators": [
+        "b-page-newtab_empty"
+      ], 
+      "overlay": "", 
+      "preview": ""
+    }, 
+    {
+      "id": "lights", 
+      "image": "https://storage.ape.yandex.net/get/4fd0f00d6f3e8ff23655aede96ac5490.jpg", 
+      "modificators": [], 
+      "overlay": "", 
+      "preview": "chrome-extension-resource://emghafiiokbjdgphaofindndbcicinae/skins/preview/lights.jpg"
+    }, 
+    {
+      "id": "tower", 
+      "image": "https://storage.ape.yandex.net/get/5f8f386273d28909fe8b11f706e3a1ae.jpg", 
+      "modificators": [], 
+      "overlay": "", 
+      "preview": "chrome-extension-resource://emghafiiokbjdgphaofindndbcicinae/skins/preview/tower.jpg"
+    }, 
+    {
+      "id": "ship", 
+      "image": "https://storage.ape.yandex.net/get/d1d98cd1d17ba9c1d3d6479dd00a1579.jpg", 
+      "modificators": [], 
+      "overlay": "", 
+      "preview": "chrome-extension-resource://emghafiiokbjdgphaofindndbcicinae/skins/preview/ship.jpg"
+    }, 
+    {
+      "id": "cat", 
+      "image": "https://storage.ape.yandex.net/get/73a2210bae32b124a2e719b5c418dee3.jpg", 
+      "modificators": [], 
+      "overlay": "", 
+      "preview": "chrome-extension-resource://emghafiiokbjdgphaofindndbcicinae/skins/preview/cat.jpg"
+    }, 
+    {
+      "id": "flowers", 
+      "image": "https://storage.ape.yandex.net/get/77fd0768cfb050de92ca892c2b6a2ecb.jpg", 
+      "modificators": [], 
+      "overlay": "", 
+      "preview": "chrome-extension-resource://emghafiiokbjdgphaofindndbcicinae/skins/preview/flowers.jpg"
+    }, 
+    {
+      "id": "sky", 
+      "image": "https://storage.ape.yandex.net/get/TableauBackgrounds/f25f55de60ebb2eeb38a48a0371b591d.jpg", 
+      "modificators": [], 
+      "overlay": "", 
+      "preview": "chrome-extension-resource://emghafiiokbjdgphaofindndbcicinae/skins/preview/sky.jpg"
+    }, 
+    {
+      "id": "stones", 
+      "image": "https://storage.ape.yandex.net/get/TableauBackgrounds/82120272cf57bb3c90afd78f0917fb6f.jpg", 
+      "modificators": [], 
+      "overlay": "", 
+      "preview": "chrome-extension-resource://emghafiiokbjdgphaofindndbcicinae/skins/preview/stones.jpg"
+    }, 
+    {
+      "id": "water", 
+      "image": "https://storage.ape.yandex.net/get/TableauBackgrounds/86f8bc90ed427b0471735fab35a03fd8.jpg", 
+      "modificators": [], 
+      "overlay": "", 
+      "preview": "chrome-extension-resource://emghafiiokbjdgphaofindndbcicinae/skins/preview/water.jpg"
+    }, 
+    {
+      "id": "grass", 
+      "image": "https://storage.ape.yandex.net/get/TableauBackgrounds/3f3f551d1cf7d138306b678f67ecf585.jpg", 
+      "modificators": [], 
+      "overlay": "", 
+      "preview": "chrome-extension-resource://emghafiiokbjdgphaofindndbcicinae/skins/preview/grass.jpg"
+    }, 
+    {
+      "id": "sakura", 
+      "image": "https://storage.ape.yandex.net/get/TableauBackgrounds/8246eaa41e3a004813c780b3741d6b74.jpg", 
+      "modificators": [], 
+      "overlay": "", 
+      "preview": "chrome-extension-resource://emghafiiokbjdgphaofindndbcicinae/skins/preview/sakura.jpg"
+    }
+  ], 
+  "version": 2
+}

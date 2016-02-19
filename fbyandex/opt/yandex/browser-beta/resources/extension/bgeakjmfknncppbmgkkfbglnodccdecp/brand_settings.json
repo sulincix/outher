@@ -1,0 +1,20 @@
+{
+  "id": "tb", 
+  "services": {
+    "search": "http://yandex.com.tr/search/?text=%s", 
+    "translate": "http://ceviri.yandex.com.tr/"
+  }, 
+  "signature": "4785542f22ef7f271385e9f0c8d255a54b3f828d61d4872e1a50eea75178c5e3", 
+  "translate": {
+    "directions": "https://storage.ape.yandex.net/get/browser/translator/directions152-tb.json", 
+    "languages": {
+      "primary": "tr"
+    }, 
+    "providers": {
+      "dictionary-one": "http://export.yandex.com.tr/bar/translate.xml", 
+      "dictionary-three": "http://translate.yandex.net/api/v1/tr.json/translate", 
+      "dictionary-two": "http://translate.yandex.net/dicservice.json/lookup", 
+      "translate": "http://translate.yandex.net/api/v1/tr.json/translate"
+    }
+  }
+}

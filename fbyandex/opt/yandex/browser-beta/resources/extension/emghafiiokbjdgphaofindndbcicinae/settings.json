@@ -1,0 +1,72 @@
+{
+  "Branding": {
+    "DefaultBrandId": "tb", 
+    "DefaultPartnerId": "fenerbahce"
+  }, 
+  "Cloud": {
+    "tb": {
+      "Dashboard": {
+        "URL": "https://api.browser.yandex.com.tr/dashboard/v2/get/?brandID=tb&lang=tr"
+      }, 
+      "DefaultPreset": {
+        "URL": "https://api.browser.yandex.com.tr/ntp/get/?partnerID=alifatihb"
+      }
+    }
+  }, 
+  "Skins": {
+    "tb": {
+      "URL": "chrome-extension-resource://emghafiiokbjdgphaofindndbcicinae/skins.json", 
+      "defaultSkin": 3
+    }
+  }, 
+  "WidgetCollection": {
+    "DefaultPreset": {
+      "tb": {
+        "pinned2": {
+          "http://fbwidget.yandex.com.tr": 7, 
+          "http://fenerbahce.org/": 1, 
+          "http://hedef1milyonuye.com/": 2, 
+          "http://yandex.com.tr/fb": 0, 
+          "preventMerge": true
+        }, 
+        "top": [
+          "http://www.fenerium.com.tr/", 
+          "http://www.fenerbahce.com.tr/", 
+          "http://fenercell.com/", 
+          "http://fenerbahcesporokullari.com/", 
+          "http://fenerbahceturizmcatering.com/", 
+          "http://facebook.com", 
+          "https://twitter.com", 
+          "http://tr.wikipedia.org", 
+          "http://mail.yandex.com.tr", 
+          "https://youtube.com", 
+          "http://yemeksepeti.com", 
+          "http://eksisozluk.com", 
+          "http://gittigidiyor.com", 
+          "http://dailymotion.com/tr", 
+          "http://hotmail.com", 
+          "http://google.com.tr", 
+          "http://izlesene.com", 
+          "http://tureng.com", 
+          "http://turkishairlines.com", 
+          "http://biletix.com", 
+          "http://kariyer.net", 
+          "http://sahibinden.com", 
+          "http://hepsiburada.com", 
+          "http://mynet.com", 
+          "http://tr.msn.com", 
+          "http://haberturk.com", 
+          "http://sabah.com.tr", 
+          "http://hurriyet.com.tr", 
+          "http://milliyet.com.tr", 
+          "http://tatil.com", 
+          "http://beyazperde.com", 
+          "http://ekolay.net", 
+          "https://e-okul.meb.gov.tr", 
+          "http://tdk.gov.tr"
+        ]
+      }
+    }
+  }, 
+  "signature": "edfc06ade91ae16422ea286a07db549dd726125eec386613a522d0ec2ae9e1bb"
+}

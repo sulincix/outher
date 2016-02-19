@@ -1,0 +1,6 @@
+{
+  "advertisementButtonURL": "http://mbrowser.yandex.com.tr/mobile/", 
+  "browserAPIURL": "http://api.browser.yandex.com.tr/", 
+  "infobarButtonURL": "http://help.yandex.com.tr/yabrowser/features/push-to-call.xml", 
+  "signature": "7f4d93a8d2339b2a36ca5ddf8a846d9e467f0b275130d693f0b60fc296e2bc68"
+}

@@ -1,0 +1,79 @@
+{
+  "Branding": {
+    "DefaultBrandId": "tb", 
+    "DefaultPartnerId": ""
+  }, 
+  "Cloud": {
+    "CustomWidgetBlacklistURL": "https://api.browser.yandex.com.tr/dashboard3/blist", 
+    "tb": {
+      "Dashboard": {
+        "URL": "https://api.browser.yandex.com.tr/dashboard3/get/?brandID=tb&scale=0.43"
+      }, 
+      "DefaultPreset": {
+        "URL": "https://api.browser.yandex.com.tr/ntp/get/?brandID=tb"
+      }
+    }
+  }, 
+  "Skins": {
+    "tb": {
+      "URL": "chrome-extension-resource://emghafiiokbjdgphaofindndbcicinae/skins.json", 
+      "defaultSkin": 1, 
+      "show_back_selector": "yes"
+    }
+  }, 
+  "SocialService": {
+    "tb": {
+      "BaseURL": "http://api.browser.yandex.com.tr/social/proxy?method=", 
+      "BrokerURL": "https://social.yandex.com.tr/broker/", 
+      "RemoteURL": "http://api.browser.yandex.com.tr/social/get", 
+      "StubURL": "http://api.browser.yandex.com.tr/social/stub"
+    }
+  }, 
+  "SuggestService": {
+    "tb": {
+      "RemoteURL": "https://api.browser.yandex.com.tr/dashboard-suggest?part=%s&uil=tr"
+    }
+  }, 
+  "WidgetCollection": {
+    "DefaultPreset": {
+      "tb": {
+        "pinned2": {
+          "http://facebook.com": 3, 
+          "http://www.yandex.com.tr": 0
+        }, 
+        "top": [
+          "http://mail.yandex.com.tr", 
+          "https://twitter.com", 
+          "http://harita.yandex.com.tr", 
+          "http://tr.wikipedia.org", 
+          "http://disk.yandex.com.tr", 
+          "http://izlesene.com", 
+          "http://gittigidiyor.com", 
+          "http://dailymotion.com/tr", 
+          "http://youtube.com", 
+          "http://yemeksepeti.com", 
+          "http://hotmail.com", 
+          "http://tureng.com", 
+          "http://turkishairlines.com", 
+          "http://biletix.com", 
+          "http://kariyer.net", 
+          "http://sahibinden.com", 
+          "http://hepsiburada.com", 
+          "http://mynet.com", 
+          "http://tr.msn.com", 
+          "http://haberturk.com", 
+          "http://sabah.com.tr", 
+          "http://hurriyet.com.tr", 
+          "http://milliyet.com.tr", 
+          "http://tatil.com", 
+          "http://beyazperde.com", 
+          "http://ekolay.net", 
+          "https://e-okul.meb.gov.tr", 
+          "http://tdk.gov.tr"
+        ]
+      }
+    }
+  }, 
+  "signature": "7fc8193dd5791e2967059feb7891226e5cf334eede2c82630ba6e9d1d4bb6701", 
+  "version": 1
+}
