@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "wallpaper": {
+    "source": "http://storage.ape.yandex.net/get/TableauBackgrounds/58161b149391b9487e394365089eefa1.webm",
+    "video": true,
+    "future": true,
+    "preview": "raindrops_preview.png",
+    "static": "http://storage.ape.yandex.net/get/TableauBackgrounds/8935365e6de64254ece3358bac465565.png",
+    "avg_color": "dark"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "wallpaper": {
+    "source": "http://storage.ape.yandex.net/get/TableauBackgrounds/a5361688f3dbce1f573fa7e5683b31f9.webm",
+    "video": true,
+    "future": true,
+    "preview": "cloudy_preview.png",
+    "static": "http://storage.ape.yandex.net/get/TableauBackgrounds/82bc24c5c273d12e135ebdbc990e5e60.png",
+    "avg_color": "dark"
+  }
+}

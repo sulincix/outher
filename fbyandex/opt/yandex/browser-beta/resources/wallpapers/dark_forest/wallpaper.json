@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "wallpaper": {
+    "source": "http://storage.ape.yandex.net/get/TableauBackgrounds/d7af4a5558342119a8351581c8248200.webm",
+    "video": true,
+    "future": true,
+    "preview": "dark_forest_preview.png",
+    "static": "http://storage.ape.yandex.net/get/TableauBackgrounds/56c81ec0f21a7faa0619e5b5a019c0d9.png",
+    "avg_color": "dark"
+  }
+}

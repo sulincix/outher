@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "wallpaper": {
+    "source": "new_mountains.webm",
+    "video": true,
+    "future": true,
+    "preview": "mountains_preview.png",
+    "static": "new_mountains_static.png",
+    "avg_color": "dark"
+  }
+}

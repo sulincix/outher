@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "wallpaper": {
+    "source": "http://storage.ape.yandex.net/get/TableauBackgrounds/49e4e3c5a6f5ee86e751e518f4ff40f7.webm",
+    "video": true,
+    "future": true,
+    "preview": "yellow_forest_preview.png",
+    "static": "http://storage.ape.yandex.net/get/TableauBackgrounds/1b42832ffa5b52f396ab8ef55ce95bbd.png",
+    "avg_color": "dark"
+  }
+}
