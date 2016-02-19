@@ -1,0 +1,6 @@
+?package(yandex-browser-beta):needs="x11" \
+  section="Applications/Network/Web Browsing" \
+  hints="Web browsers" \
+  title="FbYandex Browser" \
+  icon="/opt/yandex/browser-beta/product_logo_32.xpm" \
+  command="/opt/yandex/browser-beta/yandex-browser-beta"

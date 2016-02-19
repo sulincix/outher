@@ -1,0 +1,35 @@
+[Desktop Entry]
+Categories=Network;WebBrowser;
+Comment[tr]=İnternet'e erişin
+Comment=İnternet'e erişin
+Exec=/usr/bin/yandex-browser-beta %U
+GenericName[tr]=Web Tarayıcı
+GenericName=Web Tarayıcı
+Icon=yandex-browser-beta
+MimeType=text/html;image/webp;application/xml;
+Name[tr]=FbYandex Browser
+Name=FbYandex Browser
+Name[tr_TR]=FbYandex-browser
+Path=
+StartupNotify=true
+Terminal=false
+TerminalOptions=
+Type=Application
+Version=1.0
+X-Ayatana-Desktop-Shortcuts=NewWindow;NewIncognito
+X-DBUS-ServiceName=
+X-DBUS-StartupType=
+X-KDE-SubstituteUID=false
+X-KDE-Username=
+
+[NewIncognito Shortcut Group]
+Exec=/usr/bin/yandex-browser-beta --incognito
+Name[tr]=Yeni Gizli pencere
+Name=New Incognito Window
+TargetEnvironment=Unity
+
+[NewWindow Shortcut Group]
+Exec=/usr/bin/yandex-browser-beta
+Name[tr]=Yeni Pencere
+Name=New Window
+TargetEnvironment=Unity

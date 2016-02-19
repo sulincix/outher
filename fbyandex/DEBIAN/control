@@ -1,0 +1,11 @@
+Package: Fbyandex
+Version: 1.0
+Architecture: all
+Maintainer: Ali Rıza KESKİN <aliriza.keskin@pardustopluluk.org>
+Installed-Size:
+Replaces: yandex-browser-beta
+Depends: yandex-browser-beta
+Section: web
+Priority: optional
+Description: Fenerbahce yandex browser
+ Fenerbahceye ozel türkçe yandex browser.
