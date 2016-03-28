@@ -3,7 +3,7 @@
 data="?"
 while (true)
 do
-data="$data\n?"
+data="$datan\?"
 clear
 echo $data
 done
