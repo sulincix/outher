@@ -1,13 +1,13 @@
 #!/bin/bash
 export res="https://gitlab.com/parduscix/iso_duzenleyici/raw/master/iso_olusturucu/binary"
-export pwd=$(pwd)
+export pwd="$(pwd)"
 if [ "$1" != "nochroot" ]
 then
   rm -rvf ./chroot 2> /dev/null
   mkdir -p ./chroot 2> /dev/null
-  `ls / | grep -v home | grep -v dev | grep -v root | grep -v sys | grep -v media | grep -v mnt | | grep -v proc | sed "s|^|cp -prvf /|" | sed "s|$| ./chroot/|"`
+  `ls / | grep -v home | grep -v dev | grep -v root | grep -v sys | grep -v media | grep -v mnt | grep -v run | grep -v proc | sed "s|^|cp -prvf /|" | sed "s|$| ./chroot/|"`
   rmdir ./chroot/* 2> /dev/null
-  mkdir -p ./chroot/{dev,sys,proc,home,root,media,mnt} 2> /dev/null
+  mkdir -p ./chroot/{dev,sys,proc,home,root,media,mnt,run} 2> /dev/null
   chroot ./chroot "deluser $(ls /home/)"
   echo > ./chroot/etc/fstab
   mksquashfs ./chroot ./filesystem.squashfs -comp xz -wildcards
@@ -21,7 +21,7 @@ else
   mkdir -p $pwd/binary/efi/boot/
   cd $pwd/binary/boot/grub/
   wget -c $res/boot/grub/efi.img 
-  wget -c $res/boot/grub/grub.cfg 
+  wget -c $res/boot/grub/grub.cfg
   cd $pwd/binary/efi/boot
   wget -c $res/efi/boot/BOOTx64.EFI 
   wget -c $res/efi/boot/bootia32.efi 
