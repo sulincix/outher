@@ -3,24 +3,24 @@ export res="https://gitlab.com/parduscix/iso_duzenleyici/raw/master/iso_olusturu
 export pwd="$(pwd)"
 if [ "$1" != "nochroot" ]
 then
-  rm -rvf ./chroot 2> /dev/null
-  mkdir -p ./chroot 2> /dev/null
-  `ls / | grep -v home | grep -v dev | grep -v root | grep -v sys | grep -v media | grep -v mnt | grep -v run | grep -v proc | sed "s|^|cp -prvf /|" | sed "s|$| ./chroot/|"`
-  rmdir ./chroot/* 2> /dev/null
-  mkdir -p ./chroot/{dev,sys,proc,home,root,media,mnt,run} 2> /dev/null
-  chroot ./chroot "deluser $(ls /home/)"
-  echo > ./chroot/etc/fstab
-  rm -rf ./chroot/var/log/*
-  rm -rf ./chroot/var/cache/apt/archives/*
-  cd ./chroot/root/
+  rm -rvf $pwd/chroot 2> /dev/null
+  mkdir -p $pwd/chroot 2> /dev/null
+  `ls / | grep -v home | grep -v dev | grep -v root | grep -v sys | grep -v media | grep -v mnt | grep -v run | grep -v proc | sed "s|^|cp -prvf /|" | sed "s|$| $pwd/chroot/|"`
+  rmdir $pwd/chroot/* 2> /dev/null
+  mkdir -p $pwd/chroot/{dev,sys,proc,home,root,media,mnt,run} 2> /dev/null
+  chroot $pwd/chroot "deluser $(ls /home/)"
+  echo > $pwd/chroot/etc/fstab
+  rm -rf $pwd/chroot/var/log/*
+  rm -rf $pwd/chroot/var/cache/apt/archives/*
+  cd $pwd/chroot/root/
   rm -rf ./{*,.*} 2> /dev/null
-  cd ../../
-  cp -prf ./chroot/etc/skel/ -T ./chroot/root/
-  rm -rf ./chroot/var/lib/apt/lists/*
-  cd ./chroot/tmp/
+  cd $pwd/
+  cp -prf $pwd/chroot/etc/skel/ -T $pwd/chroot/root/
+  rm -rf $pwd/chroot/var/lib/apt/lists/*
+  cd $pwd/chroot/tmp/
   rm -rf ./{*,.*} 2> /dev/null
-  cd ../../
-  mksquashfs ./chroot ./filesystem.squashfs -comp xz -wildcards
+  cd $pwd/
+  mksquashfs $pwd/chroot ./filesystem.squashfs -comp xz -wildcards
 fi
 if [ -d $pwd/binary ]
 then
