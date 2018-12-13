@@ -10,6 +10,16 @@ then
   mkdir -p ./chroot/{dev,sys,proc,home,root,media,mnt,run} 2> /dev/null
   chroot ./chroot "deluser $(ls /home/)"
   echo > ./chroot/etc/fstab
+  rm -rf ./chroot/var/log/*
+  rm -rf ./chroot/var/cache/apt/archives/*
+  cd ./chroot/root/
+  rm -rf ./{*,.*} 2> /dev/null
+  cd ../../
+  cp -prf ./chroot/etc/skel/ -T ./chroot/root/
+  rm -rf ./chroot/var/lib/apt/lists/*
+  cd ./chroot/tmp/
+  rm -rf ./{*,.*} 2> /dev/null
+  cd ../../
   mksquashfs ./chroot ./filesystem.squashfs -comp xz -wildcards
 fi
 if [ -d $pwd/binary ]
