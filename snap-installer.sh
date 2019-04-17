@@ -13,6 +13,6 @@ echo "export SNAP_ARCH=amd64">> /snap/bin/$1
 echo "export SNAP_USER_COMMON=\$HOME/.snap">> /snap/bin/$1
 echo "export HOME=\$HOME/.snap">> /snap/bin/$1
 echo "export PATH=$PATH:$SNAP/bin:$SNAP/usr/bin">> /snap/bin/$1
-ls /snap/$1/ | grep wrapper | sed "s|^|exec /snap/$1/|" | sed "s|$| \$@|" >> /usr/bin/$2
+ls /snap/$1/ | grep wrapper | sed "s|^|exec /snap/$1/|" | sed "s|$| \$@|" >> /usr/bin/$1
 chmod 755 /snap/bin/$1
 umount /mnt
