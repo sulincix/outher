@@ -4,7 +4,7 @@ then
   echo -e "\033[32;1mRegex for all files:\033[;0m" 1>&2
   find "$1" | grep "\."
 else
-  echo -e "\033[32;1mRegex for \033[;0m\.$2\033[32;1m files:\033[;0m" 1>&2
+  echo -e "\033[32;1mRegex for \033[;0m.$2\033[32;1m files:\033[;0m" 1>&2
   find "$1" | grep "\.$2\$"
 fi
 }
