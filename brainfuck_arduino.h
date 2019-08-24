@@ -9,6 +9,7 @@ brainfuck language
 > pointer++
 [ while (value!=0) {
 ] }
+
 Extras:
 1 set current cell value 1023
 0 set current cell value 0
@@ -17,6 +18,17 @@ $ push value to memory
 * value=value*2
 / value=value/2
 O set pointer 0
+
+Example usage: (blink)
+
+#include "brainfuck_arduino.h"
+void setup() {
+  //bf(code,memory_size);
+  bf("++++++++++[.>>>>>>>>>>>>>1.<<<<<<<<<<<<<.>>>>>>>>>>>>>0.<<<<<<<<<<<<<]",20);
+}
+void loop() {}
+
+
 */
 int num2Analog(int num){
  if(num==0){
