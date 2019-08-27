@@ -1,5 +1,5 @@
 #!/bin/bash
-export res="https://gitlab.com/parduscix/iso_duzenleyici/raw/master/iso_olusturucu/binary"
+export res="https://gitlab.com/sulincix/iso_duzenleyici/raw/master/iso_olusturucu/binary"
 export pwd="$(pwd)"
 if [ "$1" != "nochroot" ]
 then
