@@ -35,29 +35,29 @@ int num2Analog(int num){
   return A0;
   }else if(num==1){
   return A1;
-  }else if(num==0){
+  }else if(num==2){
   return A2;
-  }else if(num==0){
+  }else if(num==3){
   return A3;
-  }else if(num==0){
+  }else if(num==4){
   return A4;
-  }else if(num==0){
+  }else if(num==5){
   return A5;
-  }else if(num==0){
+  }else if(num==6){
   return A6;
-  }else if(num==0){
+  }else if(num==7){
   return A7;
-  }else if(num==0){
+  }else if(num==8){
   return A8;
-  }else if(num==0){
+  }else if(num==9){
   return A9;
-  }else if(num==0){
+  }else if(num==10){
   return A10;
-  }else if(num==0){
+  }else if(num==11){
   return A11;
-  }else if(num==0){
+  }else if(num==12){
   return A12;
-  }else if(num==0){
+  }else if(num==13){
   return A13;
   }else if(num==14){
   return A14;
