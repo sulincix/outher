@@ -16,4 +16,4 @@ mount --bind /dev/pts /mnt/dev/pts
 mount --bind /sys /mnt/sys
 mount --bind /proc /mnt/proc
 chroot /mnt grub-install $mbr
-chroot /mnt update-grub
+chroot /mnt grub-mkconfig -o /boot/grub/grub.cfg
