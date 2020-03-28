@@ -2,7 +2,7 @@
 #Gerekenler: debootstrap grub squashfs-tools okuma-yazma
 set -e # eğer hata olursa diğer adımlara geçmeden kapatmak için
 #Önce debian chroot çekelim
-debootstrap --arch amd64 stable ./isowork
+[ -d ./isowork ] || debootstrap --arch amd64 stable ./isowork
 #dizin bağlarını koyalım
 mount --bind /dev ./isowork/dev
 mount --bind /dev/pts ./isowork/dev/pts
@@ -11,11 +11,12 @@ mount --bind /proc ./isowork/proc
 mount --bind /run ./isowork/run
 #Sources.list dosyasını yazalım.
 cat > ./isowork/etc/apt/sources.list <<EOF
-deb https://deb.debian.org/debian stable main contrib non-free
-deb-src https://deb.debian.org/debian stable main contrib non-free
+deb http://deb.debian.org/debian stable main contrib non-free
+deb-src http://deb.debian.org/debian stable main contrib non-free
 deb http://security.debian.org/debian-security buster/updates main contrib non-free
 deb-src http://security.debian.org/ buster/updates main contrib non-free
 EOF
+chroot ./isowork apt install -y ca-certificates
 #Live açılış için gerekenler
 chroot ./isowork dpkg --add-architecture i386
 chroot ./isowork apt update
