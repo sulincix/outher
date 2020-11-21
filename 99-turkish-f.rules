@@ -1,0 +1,5 @@
+# usb klavyeniz zorla düzen değiştiriyorsa çözümü bu
+# id ve vendor numaralarını busybox lsusb çıktısından öğrenip düzenleyin.
+# örneğin bendeki şu şekildeydi:
+# Bus 002 Device 009: ID 1a2c:4c5e
+ACTION=="add", ATTRS{idVendor}=="1a2c", ATTRS{idProduct}=="4c5e", ENV{XKBMODEL}="pc105", ENV{XKBLAYOUT}="tr", ENV{XKBVARIANT}="f", ENV{XKBOPTIONS}=""
