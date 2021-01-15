@@ -14,9 +14,9 @@ exec bwrap --ro-bind /usr /usr \
       --ro-bind /sys/devices/pci0000:00 /sys/devices/pci0000:00 \
       --bind /tmp/bubble-$USER /root \
       --dir /tmp \
+      --ro-bind /var /var \
       --dir /run \
-      --dir /var \
-      --dir /run \
+      --bind /run/media /media \
       --proc /proc \
       --dev /dev \
       --ro-bind /etc/resolv.conf /etc/resolv.conf \
