@@ -30,13 +30,15 @@ for path in paths:
     file=open(path,"r").read()
     for line in file.split("\n"):
         line=line.strip()
-        if "#DOCDIR:" in line and line.strip()[0] == "#":
+        if len(line.strip())<2 or line.strip()[1] == " ":
+            True # Dummy code block
+        elif "#DOCDIR:" in line and line.strip()[0] == "#":
             docdir=line.split("#DOCDIR:")[1].strip()+"/"
-        if "#DOCNAME:" in line and line.strip()[0] == "#":
+        elif "#DOCNAME:" in line and line.strip()[0] == "#":
             docname=line.split("#DOCNAME:")[1].strip()
-        if "#DOCTYPE:" in line and line.strip()[0] == "#":
+        elif "#DOCTYPE:" in line and line.strip()[0] == "#":
             dty="."+line.split("#DOCTYPE:")[1].strip()
-        if "#DOCSTR:" in line and line.strip()[0] == "#":
+        elif "#DOCSTR:" in line and line.strip()[0] == "#":
             d="#"+line.split("#DOCSTR:")[1].strip()+":"
         if d in line and line.strip()[0] == "#":
             docstr+=line.split(d)[1]+"\n"
