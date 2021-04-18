@@ -8,7 +8,9 @@ else:
 content=file.read()
 is_enabled=False
 hxc="0123456789abcdef"
-content=content.replace("white","black");
+content=content.replace("white","@@@");
+content=content.replace("black","white");
+content=content.replace("@@@","black");
 for c in content:
     if c == '#':
         is_enabled=True
