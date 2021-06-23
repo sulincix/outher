@@ -4,12 +4,13 @@ ls /dev/sd*
 read disk
 echo "MBR girin (örneğin /dev/sda)"
 read mbr
-echo "EFI bölümünü girin (legacy kullanıyorsanız 0 yazın)"
-read efi
-mount $disk /mnt
-if [ "$efi" != "0" ]
+if [[ -d /sys/firmware/efi/ ]]
 then
+  echo "EFI bölümünü girin"
+  read efi
+  mount $disk /mnt
   mount --bind $efi /mnt/boot/efi
+  mount --bind /sys/firmware/efi/efivars /mnt/sys/firmware/efi/efivars
 fi
 mount --bind /dev /mnt/dev
 mount --bind /dev/pts /mnt/dev/pts
