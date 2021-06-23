@@ -11,11 +11,11 @@ mount --bind /proc ./isowork/proc
 mount --bind /run ./isowork/run
 #Sources.list dosyasını yazalım.
 cat > ./isowork/etc/apt/sources.list <<EOF
-deb http://deb.debian.org/debian stable main contrib non-free
-deb-src http://deb.debian.org/debian stable main contrib non-free
-deb http://security.debian.org/debian-security buster/updates main contrib non-free
-deb-src http://security.debian.org/ buster/updates main contrib non-free
+deb http://deb.debian.org/debian testing main contrib non-free
+deb-src http://deb.debian.org/debian testing main contrib non-free
 EOF
+echo "deb https://deb.debian.org/debian stable main contrib non-free" > ./isowork/etc/apt/sources.list.d/debian-stable.list
+#Paket kurulumu yapalım
 chroot ./isowork apt install -y ca-certificates
 #Live açılış için gerekenler
 chroot ./isowork dpkg --add-architecture i386
@@ -23,6 +23,7 @@ chroot ./isowork apt update
 chroot ./isowork apt install -y live-boot live-config grub-pc-bin grub-efi lsb-release
 #Ek paketler buraya ekleme yapabilirsiniz. Ben aklıma gelenleri ekledim.
 chroot ./isowork apt install -y xinit xserver-xorg lightdm xfce4 xfce4-goodies # masaüstü ortamı
+#Her türlü bloat doldurma girişimi :)
 chroot ./isowork apt install -y linux-image-amd64 curl network-manager pavucontrol geany vlc gimp \
 	inkscape firefox-esr shotwell zsh libreoffice qalculate evince vim ssh kazam htop openshot \
 	gnome-boxes filezilla xarchiver rar unrar deluge synaptic build-essential git zenity dialog \
@@ -31,7 +32,8 @@ chroot ./isowork apt install -y linux-image-amd64 curl network-manager pavucontr
 	kazam plank uget steam nmap pidgin thunderbird timeshift rsync transmission geary evolution \
 	clamtk bleachbit autacity ardour blender freecad krita rhythmbox shutter simplescreenrecorder \
 	clamav gtk-recordmydesktop smplayer taskwarrior scribus dosbox playonlinux wine32 winetricks \
-	kodi arduino adb fastboot octave gksu atril evince net-tools blueman
+	kodi arduino adb fastboot octave gksu atril evince net-tools blueman devscripts squashfs-tools \
+	xorriso mtools conky flatpak gnome-builder 
 #Driver paketlerinin tamamı. Burayı kurcalamasanız iyi olur :D
 chroot ./isowork apt install \
 	firmware-amd-graphics firmware-atheros firmware-b43-installer firmware-b43legacy-installer \
@@ -70,16 +72,18 @@ Description: Debian desktop-base killer
 EOF
 dpkg -b ./isowork/tmp/desktop-base
 chroot ./isowork dpkg -i /tmp/desktop-base.deb
-#Lmde kurulum aracı için 2 şeye ihtiyacımız var.
-#1- deb paketini indirip kurmamız gerekli. Bu aşama tercihe bağlıdır.
-wget https://github.com/linuxmint/live-installer/releases/download/2015.09.19/live-installer_2015.09.19_all.deb
-mv live-installer_2015.09.19_all.deb ./isowork/tmp/live-installer.deb
-chroot dpkg -i ./isowork/tmp/live-installer.deb
-#2- paketin bağımlılıkları jessie ve sid depolarında bulunuyor. sid kararsız bu yüzden jessie deposu ekleyeceğiz.
-echo "deb https://deb.debian.org/debian jessie main contrib non-free" > ./isowork/etc/apt/sources.list.d/jessie.list
+#17g derleyip kuralım
+apt-get install git devscripts -y
+mkdir 17g-build && cd 17g-build 
+git clone https://gitlab.com/ggggggggggggggggg/17g && cd 17g
+mk-build-deps --install
+debuild -us -uc -b ; cd ../../
+cp 17g-build/17g*.deb ./isowork/tmp/17g.deb
+chroot ./isowork dpkg -i tmp/17g.deb || true
+chroot ./isowork apt-get install -f -y
+rm -f ./isowork/tmp/17g.deb 17g-build
 chroot ./isowork apt install -f
 #Bağımlılıkları kurdu şimdi jessie deposunu silelim. Lmde installer kurulumu tamamlanmış oldu.
-rm -f ./isowork/etc/apt/sources.list.d/jessie.list
 #Varsayılan ayarlar /etc/skel içerisinde bulunur. Bu dizindeki dosyalar yeni kullanıcıların ev dizinine atılır. 
 #Bu betiğin çalıştırıldığı yerde skel adında bir dizin içindekileri iso taslağına atalım. Dizin yoksa es geçecek.
 [ -d ./skel ] && cp -prfv ./skel/* ./isowork/etc/skel/
