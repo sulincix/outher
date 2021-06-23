@@ -1,74 +1,70 @@
 #!/bin/bash
-export res="https://gitlab.com/sulincix/iso_duzenleyici/raw/master/iso_olusturucu/binary"
-export pwd="$(pwd)"
-if [ "$1" != "nochroot" ]
-then
-  rm -rvf $pwd/chroot 2> /dev/null
-  mkdir -p $pwd/chroot 2> /dev/null
-  `ls / | grep -v home | grep -v dev | grep -v root | grep -v sys | grep -v media | grep -v mnt | grep -v run | grep -v proc | sed "s|^|cp -prvf /|" | sed "s|$| $pwd/chroot/|"`
-  rmdir $pwd/chroot/* 2> /dev/null
-  mkdir -p $pwd/chroot/{dev,sys,proc,home,root,media,mnt,run} 2> /dev/null
-  chroot $pwd/chroot "deluser $(ls /home/)"
-  echo > $pwd/chroot/etc/fstab
-  rm -rf $pwd/chroot/var/log/*
-  rm -rf $pwd/chroot/var/cache/apt/archives/*
-  cd $pwd/chroot/root/
-  rm -rf ./{*,.*} 2> /dev/null
-  cd $pwd/
-  cp -prf $pwd/chroot/etc/skel/ -T $pwd/chroot/root/
-  rm -rf $pwd/chroot/var/lib/apt/lists/*
-  cd $pwd/chroot/tmp/
-  rm -rf ./{*,.*} 2> /dev/null
-  cd $pwd/
-  mksquashfs $pwd/chroot ./filesystem.squashfs -comp xz -wildcards
+set -ex
+#install dependencies
+apt install grub-pc-bin grub-efi squashfs-tools xorriso mtools -y
+
+#overlayfs mount
+mkdir -p /tmp/work/source /tmp/work/a /tmp/work/b /tmp/work/target /tmp/work/empty \
+         /tmp/work/iso/live/ /tmp/work/iso/boot/grub/|| true
+touch /tmp/work/empty-file
+umount -v -lf -R /tmp/work/* || true
+mount --bind / /tmp/work/source
+mount -t overlay -o lowerdir=/tmp/work/source,upperdir=/tmp/work/a,workdir=/tmp/work/b overlay /tmp/work/target
+
+#resolv.conf fix
+export rootfs=/tmp/work/target
+rm -f $rootfs/etc/resolv.conf || true
+echo "nameserver 1.1.1.1" > $rootfs/etc/resolv.conf
+
+#live-boot install
+chroot $rootfs apt install live-config live-boot -y
+chroot $rootfs apt autoremove -y
+chroot $rootfs apt clean -y
+echo -e "live\nlive\n" | chroot $rootfs passwd
+
+#mount empty file and directories
+for i in dev sys proc run tmp root media mnt; do
+    mount -v --bind /tmp/work/empty $rootfs/$i
+done
+
+#hide flatpak applications (optional)
+[[ -d $rootfs/var/lib/flatpak ]] && mount -v --bind /tmp/work/empty $rootfs/var/lib/flatpak
+
+#remove users
+for u in $(ls /home/) ; do
+    chroot $rootfs userdel -fr $u
+done
+
+mount --bind /tmp/work/empty-file $rootfs/etc/fstab
+
+#clear rootfs
+find -type f $rootfs/var/log | xargs rm -f
+
+#create squashfs
+if [[ ! -f /tmp/work/iso/live/filesystem.squashfs ]] ; then
+    mksquashfs $rootfs /tmp/work/iso/live/filesystem.squashfs -comp gzip -wildcards
 fi
-if [ -d $pwd/binary ]
-then
-  echo "Skipping to create binary directory"
-else
-  mkdir -p $pwd/binary/{boot,grub,isolinux,live}
-  mkdir -p $pwd/binary/boot/grub/
-  mkdir -p $pwd/binary/efi/boot/
-  cd $pwd/binary/boot/grub/
-  wget -c $res/boot/grub/efi.img 
-  wget -c $res/boot/grub/grub.cfg
-  cd $pwd/binary/efi/boot
-  wget -c $res/efi/boot/BOOTx64.EFI 
-  wget -c $res/efi/boot/bootia32.efi 
-  wget -c $res/efi/boot/bootia32.EFI 
-  wget -c $res/efi/boot/grubx64.EFI 
-  wget -c $res/efi/boot/grubx64.efi 
-  cd $pwd/binary/isolinux
-  wget -c $res/isolinux/boot.cat 
-  wget -c $res/isolinux/hdt.c32 
-  wget -c $res/isolinux/isohybrid-mbr 
-  wget -c $res/isolinux/isolinux.bin 
-  wget -c $res/isolinux/isolinux.cat 
-  wget -c $res/isolinux/isolinux.cfg 
-  wget -c $res/isolinux/ldlinux.c32 
-  wget -c $res/isolinux/libcom32.c32 
-  wget -c $res/isolinux/libutil.c32 
-  wget -c $res/isolinux/live.cfg 
-  wget -c $res/isolinux/menu.cfg 
-  wget -c $res/isolinux/splash.png 
-  wget -c $res/isolinux/stdmenu.cfg 
-  wget -c $res/isolinux/vesamenu.c32 
-fi
-cd $pwd
-rm -rf $pwd/binary/live/filesystem.squashfs 2> /dev/null
-mv filesystem.squashfs $pwd/binary/live/filesystem.squashfs
-dd if=/initrd.img of=$pwd/binary/live/initrd.img
-dd if=/vmlinuz of=$pwd/binary/live/vmlinuz
-export binary=$pwd/binary
-cd $pwd
-xorriso -as mkisofs \
-        -iso-level 3 -rock -joliet \
-        -max-iso9660-filenames -omit-period \
-        -omit-version-number -relaxed-filenames -allow-lowercase \
-        -volid "CustomLiveIso" \
-        -eltorito-boot isolinux/isolinux.bin \
-        -eltorito-catalog isolinux/isolinux.cat \
-        -no-emul-boot -boot-load-size 4 -boot-info-table \
-        -eltorito-alt-boot -e boot/grub/efi.img -isohybrid-gpt-basdat -no-emul-boot \
-        -isohybrid-mbr $binary/isolinux/isohybrid-mbr \
--output "live-image-amd64.hybrid.iso" $binary
+
+#umount all
+umount -v -lf -R /tmp/work/* || true
+
+#write grub file
+grub=/tmp/work/iso/boot/grub/grub.cfg
+echo "insmod all_video" > $grub
+dist=$(cat /etc/os-release | grep ^PRETTY_NAME | cut -f 2 -d '=' | head -n 1 | sed 's/\"//g')
+for k in $(ls /boot/vmlinuz-*) ; do
+    ver=$(echo $k | sed "s/.*vmlinuz-//g")
+    if [[ -f /boot/initrd.img-$ver ]] ; then
+        cp -f $rootfs/boot/vmlinuz-$ver /tmp/work/iso/boot
+        cp -f $rootfs/boot/initrd.img-$ver /tmp/work/iso/boot
+        echo "menuentry \"$dist ($ver)\" {" >> $grub
+        echo "    linux /boot/vmlinuz-$ver boot=live live-config quiet splash" >> $grub
+        echo "    initrd /boot/initrd.img-$ver" >> $grub
+        echo "}" >> $grub
+    fi
+done
+
+# create iso
+grub-mkrescue /tmp/work/iso/ -o ./live-image-$(date +%s).iso
+
+
