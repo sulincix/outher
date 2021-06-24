@@ -20,7 +20,7 @@ echo "deb http://pkgmaster.devuan.org/merged oldstable main contrib non-free" > 
 #Live açılış için gerekenler
 chroot ./isowork dpkg --add-architecture i386
 chroot ./isowork apt update
-chroot ./isowork apt install -y live-boot live-config grub-pc-bin grub-efi lsb-release
+chroot ./isowork apt install -y live-boot live-config grub-pc-bin grub-efi lsb-release openrc
 #Ek paketler buraya ekleme yapabilirsiniz. Ben aklıma gelenleri ekledim.
 chroot ./isowork apt install -y xinit xserver-xorg lightdm xfce4 xfce4-goodies # masaüstü ortamı
 #Her türlü bloat doldurma girişimi :)
