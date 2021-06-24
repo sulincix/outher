@@ -20,7 +20,7 @@ echo "deb http://pkgmaster.devuan.org/merged oldstable main contrib non-free" > 
 #Live açılış için gerekenler
 chroot ./isowork dpkg --add-architecture i386
 chroot ./isowork apt update
-chroot ./isowork apt install -y live-boot live-config grub-pc-bin grub-efi lsb-release openrc
+chroot ./isowork apt install -y live-boot live-config grub-pc-bin grub-efi  openrc
 #Ek paketler buraya ekleme yapabilirsiniz. Ben aklıma gelenleri ekledim.
 chroot ./isowork apt install -y xinit xserver-xorg lightdm xfce4 xfce4-goodies # masaüstü ortamı
 #Her türlü bloat doldurma girişimi :)
@@ -36,7 +36,7 @@ chroot ./isowork apt install -y --no-install-recommends linux-image-amd64 linux-
 	xorriso mtools conky flatpak gnome-builder wireshark p7zip okular kate kwrite gedit aptly  \
 	engrampa php apache2 file-roller xfburn cairo-dock busybox-static meson live-build obs-studio \
 	catfish tilix neofetch screenfetch tmux screen emacs aria2 gnucash empathy terminator guake \
-	lollypop clementine cmus calligra gnome-screenshot curl
+	lollypop clementine cmus calligra gnome-screenshot curl lsb-release
 #Driver paketlerinin tamamı. Burayı kurcalamasanız iyi olur :D
 chroot ./isowork apt install \
 	firmware-amd-graphics firmware-atheros firmware-b43-installer firmware-b43legacy-installer \
