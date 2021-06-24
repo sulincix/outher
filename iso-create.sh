@@ -2,7 +2,7 @@
 #Gerekenler: debootstrap grub squashfs-tools okuma-yazma
 set -e # eğer hata olursa diğer adımlara geçmeden kapatmak için
 #Önce debian chroot çekelim
-[ -d ./isowork ] || debootstrap --arch amd64 stable ./isowork
+[ -d ./isowork ] || debootstrap --arch amd64 --no-merged-usr --exclude=usrmerge testing ./isowork
 #dizin bağlarını koyalım
 mount --bind /dev ./isowork/dev
 mount --bind /dev/pts ./isowork/dev/pts
