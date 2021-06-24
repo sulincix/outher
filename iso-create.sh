@@ -17,7 +17,6 @@ EOF
 echo "deb https://deb.debian.org/debian stable main contrib non-free" > ./isowork/etc/apt/sources.list.d/debian-stable.list
 echo "deb https://deb.debian.org/debian oldstable main contrib non-free" > ./isowork/etc/apt/sources.list.d/debian-stable.list
 #Paket kurulumu yapalım
-chroot ./isowork apt install -y ca-certificates
 #Live açılış için gerekenler
 chroot ./isowork dpkg --add-architecture i386
 chroot ./isowork apt update
