@@ -32,7 +32,7 @@ done
 
 #remove users
 for u in $(ls /home/) ; do
-    chroot $rootfs userdel -fr $u
+    chroot $rootfs userdel -fr $u || true
 done
 
 mount --bind /tmp/work/empty-file $rootfs/etc/fstab
@@ -44,9 +44,6 @@ find -type f $rootfs/var/log | xargs rm -f
 if [[ ! -f /tmp/work/iso/live/filesystem.squashfs ]] ; then
     mksquashfs $rootfs /tmp/work/iso/live/filesystem.squashfs -comp gzip -wildcards
 fi
-
-#umount all
-umount -v -lf -R /tmp/work/* || true
 
 #write grub file
 grub=/tmp/work/iso/boot/grub/grub.cfg
@@ -63,6 +60,9 @@ for k in $(ls /boot/vmlinuz-*) ; do
         echo "}" >> $grub
     fi
 done
+
+#umount all
+umount -v -lf -R /tmp/work/* || true
 
 # create iso
 grub-mkrescue /tmp/work/iso/ -o ./live-image-$(date +%s).iso
