@@ -15,6 +15,7 @@ deb http://deb.debian.org/debian testing main contrib non-free
 deb-src http://deb.debian.org/debian testing main contrib non-free
 EOF
 echo "deb https://deb.debian.org/debian stable main contrib non-free" > ./isowork/etc/apt/sources.list.d/debian-stable.list
+echo "deb https://deb.debian.org/debian oldstable main contrib non-free" > ./isowork/etc/apt/sources.list.d/debian-stable.list
 #Paket kurulumu yapalım
 chroot ./isowork apt install -y ca-certificates
 #Live açılış için gerekenler
@@ -24,16 +25,19 @@ chroot ./isowork apt install -y live-boot live-config grub-pc-bin grub-efi lsb-r
 #Ek paketler buraya ekleme yapabilirsiniz. Ben aklıma gelenleri ekledim.
 chroot ./isowork apt install -y xinit xserver-xorg lightdm xfce4 xfce4-goodies # masaüstü ortamı
 #Her türlü bloat doldurma girişimi :)
-chroot ./isowork apt install -y linux-image-amd64 curl network-manager pavucontrol geany vlc gimp \
+chroot ./isowork apt install -y linux-image-amd64 linux-headers-amd64 curl network-manager  \
 	inkscape firefox-esr shotwell zsh libreoffice qalculate evince vim ssh kazam htop openshot \
 	gnome-boxes filezilla xarchiver rar unrar deluge synaptic build-essential git zenity dialog \
-	network-manager-openvpn-gnome ndisgtk network-manager-openvpn network-manager-gnome gparted \
-	gigolo font-manager apt-xapian-index gdebi menu gitk banshee chromium-browser fish fontforge \
+	network-manager-openvpn-gnome gnome-disk-utility network-manager-openvpn network-manager-gnome \
+	gigolo font-manager apt-xapian-index gdebi menu gitk chromium fish fontforge pavucontrol \
 	kazam plank uget steam nmap pidgin thunderbird timeshift rsync transmission geary evolution \
-	clamtk bleachbit autacity ardour blender freecad krita rhythmbox shutter simplescreenrecorder \
-	clamav gtk-recordmydesktop smplayer taskwarrior scribus dosbox playonlinux wine32 winetricks \
-	kodi arduino adb fastboot octave gksu atril evince net-tools blueman devscripts squashfs-tools \
-	xorriso mtools conky flatpak gnome-builder 
+	clamtk bleachbit audacity ardour blender freecad krita rhythmbox simplescreenrecorder gparted \
+	clamav smplayer taskwarrior scribus dosbox playonlinux wine32 winetricks geany vlc gimp ark \
+	kodi arduino adb fastboot octave atril evince net-tools blueman devscripts squashfs-tools \
+	xorriso mtools conky flatpak gnome-builder wireshark p7zip okular kate kwrite gedit aptly  \
+	engrampa php apache2 file-roller xfburn cairo-dock busybox-static meson live-build obs-studio \
+	catfish tilix neofetch screenfetch tmux screen emacs aria2 gnucash empathy terminator guake \
+	lollypop amarok clementine cmus calligra gnome-screenshot
 #Driver paketlerinin tamamı. Burayı kurcalamasanız iyi olur :D
 chroot ./isowork apt install \
 	firmware-amd-graphics firmware-atheros firmware-b43-installer firmware-b43legacy-installer \
@@ -94,14 +98,14 @@ umount -lf ./isowork/*
 chroot ./isowork apt clean
 rm -rf ./isowork/tmp/*
 #Sfs alma işlemi. Biraz uzun sürebilir.
-mksquashfs isowork filesystem.squashfs -comp xz -wildcards
+mksquashfs isowork filesystem.squashfs -comp gzip -wildcards
 #iso taslağı oluşturma
 mkdir -p ./iso-template/boot/grub
 mkdir -p ./iso-template/live
 #taslağın içine gerekli dosyaları taşıma.
 mv filesystem.squashfs ./iso-template/live/filesystem.squashfs
-cat $(find ./isowork/boot/initrd.img* | sort | head -n 1) > ./iso-template/live/initrd.img
-cat $(find ./isowork/boot/vmlinuz* | sort | head -n 1) > ./iso-template/live/vmlinuz
+cat $(find ./isowork/boot/initrd.img* | sort -V | head -n 1) > ./iso-template/live/initrd.img
+cat $(find ./isowork/boot/vmlinuz* | sort -V | head -n 1) > ./iso-template/live/vmlinuz
 #grub dosyasını yazma.
 cat > ./iso-template/boot/grub/grub.cfg << EOF
 menuentry "Custom Live Iso" {
