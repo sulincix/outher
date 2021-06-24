@@ -11,11 +11,11 @@ mount --bind /proc ./isowork/proc
 mount --bind /run ./isowork/run
 #Sources.list dosyasını yazalım.
 cat > ./isowork/etc/apt/sources.list <<EOF
-deb http://deb.debian.org/debian testing main contrib non-free
-deb-src http://deb.debian.org/debian testing main contrib non-free
+deb http://pkgmaster.devuan.org/merged testing main contrib non-free
+deb-src http://pkgmaster.devuan.org/merged testing main contrib non-free
 EOF
-echo "deb http://deb.debian.org/debian stable main contrib non-free" > ./isowork/etc/apt/sources.list.d/debian-stable.list
-echo "deb http://deb.debian.org/debian oldstable main contrib non-free" > ./isowork/etc/apt/sources.list.d/debian-stable.list
+echo "deb http://pkgmaster.devuan.org/merged stable main contrib non-free" > ./isowork/etc/apt/sources.list.d/debian-stable.list
+echo "deb http://pkgmaster.devuan.org/merged oldstable main contrib non-free" > ./isowork/etc/apt/sources.list.d/debian-stable.list
 #Paket kurulumu yapalım
 #Live açılış için gerekenler
 chroot ./isowork dpkg --add-architecture i386
