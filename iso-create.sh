@@ -24,8 +24,8 @@ chroot ./isowork apt install -y live-boot live-config grub-pc-bin grub-efi lsb-r
 #Ek paketler buraya ekleme yapabilirsiniz. Ben aklıma gelenleri ekledim.
 chroot ./isowork apt install -y xinit xserver-xorg lightdm xfce4 xfce4-goodies # masaüstü ortamı
 #Her türlü bloat doldurma girişimi :)
-chroot ./isowork apt install -y linux-image-amd64 linux-headers-amd64 curl network-manager  \
-	inkscape firefox-esr shotwell zsh libreoffice qalculate evince vim ssh kazam htop openshot \
+chroot ./isowork apt install -y --no-install-recommends linux-image-amd64 linux-headers-amd64  \
+	inkscape firefox-esr shotwell zsh libreoffice evince vim ssh kazam htop openshot network-manager \
 	gnome-boxes filezilla xarchiver rar unrar deluge synaptic build-essential git zenity dialog \
 	network-manager-openvpn-gnome gnome-disk-utility network-manager-openvpn network-manager-gnome \
 	gigolo font-manager apt-xapian-index gdebi menu gitk chromium fish fontforge pavucontrol \
@@ -36,7 +36,7 @@ chroot ./isowork apt install -y linux-image-amd64 linux-headers-amd64 curl netwo
 	xorriso mtools conky flatpak gnome-builder wireshark p7zip okular kate kwrite gedit aptly  \
 	engrampa php apache2 file-roller xfburn cairo-dock busybox-static meson live-build obs-studio \
 	catfish tilix neofetch screenfetch tmux screen emacs aria2 gnucash empathy terminator guake \
-	lollypop amarok clementine cmus calligra gnome-screenshot
+	lollypop clementine cmus calligra gnome-screenshot curl
 #Driver paketlerinin tamamı. Burayı kurcalamasanız iyi olur :D
 chroot ./isowork apt install \
 	firmware-amd-graphics firmware-atheros firmware-b43-installer firmware-b43legacy-installer \
