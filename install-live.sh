@@ -118,6 +118,15 @@ chroot /target update-grub  || fallback
 [[ -f /target/install ]] && rm -f /target/install || true
 umount -f -R /target/* || true
 sync  || fallback
-echo "Installation done. System restarting in 10 seconds. Press any key to restart immediately."
-reat -t 10 -n 1 -s
-echo b > /proc/sysrq-trigger
+
+if [[ "$debug" != "false" ]] ; then
+    /bin/bash
+else
+    echo "Installation done. System restarting in 10 seconds. Press any key to restart immediately."
+    read -t 10 -n 1 -s
+fi
+if [[ $$ -eq 0 ]] ; then
+    echo b > /proc/sysrq-trigger
+else
+    exit 0
+fi
