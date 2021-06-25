@@ -1,15 +1,15 @@
 #!/bin/bash
 set -ex
 #install dependencies
-apt install grub-pc-bin grub-efi squashfs-tools xorriso mtools -y
+apt install grub-pc-bin grub-efi squashfs-tools xorriso mtools curl -y
 
 #overlayfs mount
+mount -t tmpfs tmpfs /tmp || true
 mkdir -p /tmp/work/source /tmp/work/a /tmp/work/b /tmp/work/target /tmp/work/empty \
          iso/live/ iso/boot/grub/|| true
 touch /tmp/work/empty-file
 umount -v -lf -R /tmp/work/* || true
 mount --bind / /tmp/work/source
-mount -t tmpfs tmpfs /tmp || true
 mount -t overlay -o lowerdir=/tmp/work/source,upperdir=/tmp/work/a,workdir=/tmp/work/b overlay /tmp/work/target
 
 #resolv.conf fix
