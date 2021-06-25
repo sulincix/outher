@@ -6,7 +6,7 @@ msg(){
 echo "export DISK=sda" > /etc/install.conf
 echo "export username=admin" >> /etc/install.conf
 echo "export password=1" >> /etc/install.conf
-echo "export debug=false" >> /etc/install.config
+echo "export debug=false" >> /etc/install.conf
 echo "export partitioning=true" >> /etc/install.conf
 echo "If you press any key in 3 seconds, switch to edit mode"
 echo "Waiting 3 seconds..."
