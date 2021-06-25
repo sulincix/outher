@@ -1,9 +1,13 @@
 #!/bin/bash
-set -x
 export PATH=/usr/bin:/usr/sbin:/bin:/sbin
+msg(){
+    echo -e "\033[32;1m$1\033[;0m"
+}
 echo "export DISK=sda" > /etc/install.conf
 echo "export username=admin" >> /etc/install.conf
 echo "export password=1" >> /etc/install.conf
+echo "export debug=false" >> /etc/install.config
+echo "export partitioning=true" >> /etc/install.conf
 echo "If you press any key in 3 seconds, switch to edit mode"
 echo "Waiting 3 seconds..."
 if read -n 1 -t 3 -s ; then
@@ -27,35 +31,64 @@ fallback(){
             exit 1
         fi
 }
-# TODO: Look here again :)
-dd if=/dev/zero of=/dev/${DISK} bs=512 count=1
-if [[ -d /sys/firmware/efi ]] ; then
-    yes | parted /dev/${DISK} mktable gpt || fallback
-    yes | parted /dev/${DISK} mkpart primary fat32 1 "100MB" || fallback
-    yes | parted /dev/${DISK} mkpart primary fat32 100MB "100%" || fallback
-    yes | mkfs.vfat /dev/${DISK}1 || fallback
-    yes | parted /dev/${DISK} set 1 esp on || fallback
-    yes | mkfs.ext4  /dev/${DISK}2 || fallback
-    mount /dev/${DISK}2  /target || fallback
+
+if [[ "$debug" != "false" ]] ; then
+    /bin/bash
+fi
+
+if [[ "$partitioning" == "true" ]] ; then
+    dd if=/dev/zero of=/dev/${DISK} bs=512 count=1
+    sync && sleep 1
+    if [[ -d /sys/firmware/efi ]] ; then
+        yes | parted /dev/${DISK} mktable gpt || fallback
+        yes | parted /dev/${DISK} mkpart primary fat32 1 "100MB" || fallback
+        yes | parted /dev/${DISK} mkpart primary fat32 100MB "100%" || fallback
+        sync && sleep 1
+        yes | mkfs.vfat /dev/${DISK}1 || fallback
+        sync && sleep 1
+        yes | mkfs.ext4  /dev/${DISK}2 || fallback
+        yes | parted /dev/${DISK} set 1 esp on || fallback
+        sync && sleep 1
+        mount /dev/${DISK}2  /target || fallback
+        mkdir -p /target/boot/efi || true
+        mount /dev/${DISK}1 /target/boot/efi  || fallback
+        export rootfs=${DIST}2
+        export efifs==${DIST}1
+    else
+        yes | parted /dev/${DISK} mktable msdos || fallback
+        yes | parted /dev/${DISK} mkpart primary fat32 1 "100%" || fallback
+        sync && sleep 1
+        yes | mkfs.ext4 /dev/${DISK}1  || fallback
+        yes | parted /dev/${DISK} set 1 boot on || fallback
+        sync && sleep 1
+        mount /dev/${DISK}1 /target  || fallback
+        export rootfs=${DIST}1
+        export efifs=""
+    fi
 else
-    yes | parted /dev/${DISK} mktable msdos || fallback
-    yes | parted /dev/${DISK} mkpart primary fat32 1 "100%" || fallback
-    yes | mkfs.ext4 /dev/${DISK}1  || fallback
-    yes | parted /dev/${DISK} set 1 boot on || fallback
-    mount /dev/${DISK}1 /target  || fallback
+    echo "Please input rootfs part (example sda2)"
+    read rootfs
+    echo "Please input mbr (example sda)"
+    read DISK
+    mount /dev/$rootfs /target
+    if [[ -d /sys/firmware/efi ]] ; then
+        echo "Please input efi part (example sda1)"
+        read efifs
+        mkdir -p /target/boot/efi
+        mount /dev/$efifs /target/boot/efi
+    fi
+    export rootfs
+    export efifs
 fi
 #rsync -avhHAX /source/ /target
 ls /source/ | xargs -n1 -P$(nproc) -I% rsync -avhHAX /source/% /target/  || fallback
 if [[ -d /sys/firmware/efi ]] ; then
-    echo "/dev/${DISK}2 /               ext4    errors=remount-ro        0       1" > /target/etc/fstab  || fallback
-    echo "/dev/${DISK}1 /boot/efi       vfat    umask=0077               0       1" >> /target/etc/fstab  || fallback
+    echo "/dev/$rootfs /               ext4    errors=remount-ro        0       1" > /target/etc/fstab  || fallback
+    echo "/dev/$efifs /boot/efi       vfat    umask=0077               0       1" >> /target/etc/fstab  || fallback
 else
-    echo "/dev/${DISK}1 /               ext4    errors=remount-ro        0       1" > /target/etc/fstab  || fallback
+    echo "/dev/$rootfs /               ext4    errors=remount-ro        0       1" > /target/etc/fstab  || fallback
 fi
-if [[ -d /sys/firmware/efi ]] ; then
-    mkdir -p /target/boot/efi || true
-    mount /dev/${DISK}1 /target/boot/efi  || fallback
-fi
+
 for i in dev sys proc run 
 do
     mkdir -p /target/$i || true 
