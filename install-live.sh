@@ -69,6 +69,7 @@ else
 fi
 echo "GRUB_DISABLE_OS_PROBER=true" >> /target/etc/default/grub
 chroot /target update-grub  || fallback
+[[ -f /target/install ]] && rm -f /target/install
 umount -f -R /target/* || true
 sync  || fallback
 echo "Installation done. System restarting in 10 seconds. Press any key to restart immediately."
