@@ -1,4 +1,5 @@
 #!/bin/bash
+export PATH=/usr/bin:/usr/sbin:/bin:/sbin
 echo "export DISK=sda" > /etc/install.conf
 echo "export username=admin" >> /etc/install.conf
 echo "export password=1" >> /etc/install.conf
@@ -16,8 +17,7 @@ mount /dev/loop0 /source || true
 fallback(){
         echo -e "\033[31;1mInstallation failed.\033[;0m"
         echo -e "Creating a shell for debuging. Good luck :D"
-        export PS1="\$?>>>"
-        /bin/bash
+        PS1="\[\033[32;1m\]>>>\[\033[1m\]" /bin/bash --norc --noprofile
         if [[ $$ -eq 0 ]] ; then
             echo o > /proc/sysrq-trigger
         else
