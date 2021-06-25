@@ -2,6 +2,16 @@
 export DISK=sda
 export username=user
 export password=pass
+echo "If you press any key in 3 seconds, switch to edit mode"
+echo "Waiting 3 seconds..."
+if timeout 3 sh -c "read -n 1" ; then
+    echo "Please input target disk: (example sda)"
+    read DISK
+    echo "Please input username: (example user)"
+    read username
+    echo "Please input password: (example abc123)"
+    read password
+fi
 mount -t devtmpfs devtmpfs /dev || true
 mount -t proc proc /proc || true
 mount -t sysfs sysfs /sys || true
@@ -54,8 +64,8 @@ fi
 chroot /target apt-get purge live-boot* live-config* live-tools --yes || true
 chroot /target apt-get autoremove --yes || true
 chroot /target update-initramfs -u -k all  || fallback
-chroot /target useradd $username
-mkdir /target/home/$username
+chroot /target useradd -m $username
+mkdir /target/home/$username || true
 chroot /target chown $username /home/$username
 echo -e "$password\n$password\n" | chroot /target passwd $username
 #echo -e "$password\n$password\n" | chroot /target passwd root
