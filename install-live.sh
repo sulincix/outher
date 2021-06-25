@@ -1,5 +1,6 @@
 #!/bin/bash
 export PATH=/usr/bin:/usr/sbin:/bin:/sbin
+# installation tool for https://gitlab.com/sulincix/outher/-/blob/gh-pages/remaster.sh
 msg(){
     echo -e "\033[32;1m$1\033[;0m"
 }
