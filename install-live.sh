@@ -32,6 +32,7 @@ if [[ -d /sys/firmware/efi ]] ; then
     yes | parted /dev/${DISK} mkpart primary fat32 1 "100MB" || fallback
     yes | parted /dev/${DISK} mkpart primary fat32 100MB "100%" || fallback
     yes | mkfs.vfat /dev/${DISK}1 || fallback
+    yes | parted /dev/${DISK} set 1 esp on || fallback
     yes | mkfs.ext4  /dev/${DISK}2 || fallback
     mount /dev/${DISK}2  /target || fallback
 else
