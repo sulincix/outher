@@ -5,7 +5,7 @@ apt install grub-pc-bin grub-efi squashfs-tools xorriso mtools -y
 
 #overlayfs mount
 mkdir -p /tmp/work/source /tmp/work/a /tmp/work/b /tmp/work/target /tmp/work/empty \
-         /tmp/work/iso/live/ /tmp/work/iso/boot/grub/|| true
+         iso/live/ iso/boot/grub/|| true
 touch /tmp/work/empty-file
 umount -v -lf -R /tmp/work/* || true
 mount --bind / /tmp/work/source
@@ -75,6 +75,6 @@ done
 umount -v -lf -R /tmp/work/* || true
 
 # create iso
-grub-mkrescue iso/ -o ./live-image-$(date +%s).iso
+grub-mkrescue iso/ -o live-image-$(date +%s).iso
 
 
