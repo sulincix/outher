@@ -81,10 +81,10 @@ ls /source/ | xargs -n1 -P$(nproc) -I% rsync -avhHAX /source/% /target/  || fall
 
 if [[ "$partitioning" == "true" ]] ; then
     if [[ -d /sys/firmware/efi ]] ; then
-        echo "/dev/$rootfs /               ext4    errors=remount-ro        0       1" > /target/etc/fstab  || fallback
-        echo "/dev/$efifs /boot/efi       vfat    umask=0077               0       1" >> /target/etc/fstab  || fallback
+        echo "/dev/${DISK}2 /               ext4    errors=remount-ro        0       1" > /target/etc/fstab  || fallback
+        echo "/dev/${DISK}1 /boot/efi       vfat    umask=0077               0       0" >> /target/etc/fstab  || fallback
     else
-        echo "/dev/$rootfs /               ext4    errors=remount-ro        0       1" > /target/etc/fstab  || fallback
+        echo "/dev/${DISK}1 /               ext4    errors=remount-ro        0       1" > /target/etc/fstab  || fallback
     fi
 else
     echo "Please write fstab file. Press any key to open editor."
