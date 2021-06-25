@@ -19,7 +19,6 @@ echo "nameserver 1.1.1.1" > $rootfs/etc/resolv.conf
 #live-boot install
 chroot $rootfs apt install live-config live-boot -y
 chroot $rootfs apt autoremove -y
-chroot $rootfs apt clean -y
 echo -e "live\nlive\n" | chroot $rootfs passwd
 
 #mount empty file and directories
@@ -37,8 +36,14 @@ done
 
 mount --bind /tmp/work/empty-file $rootfs/etc/fstab
 
+#integrate installer (automated installer)
+curl https://gitlab.com/sulincix/outher/-/raw/gh-pages/install-live.sh > $rootfs/install
+chmod +x $rootfs/installer
+chroot $rootfs apt install rsync parted grub-pc-bin grub-efi dosfstools -y
+
 #clear rootfs
 find -type f $rootfs/var/log | xargs rm -f
+chroot $rootfs apt clean -y
 
 #create squashfs
 if [[ ! -f /tmp/work/iso/live/filesystem.squashfs ]] ; then
@@ -54,6 +59,10 @@ for k in $(ls /boot/vmlinuz-*) ; do
     if [[ -f /boot/initrd.img-$ver ]] ; then
         cp -f $rootfs/boot/vmlinuz-$ver /tmp/work/iso/boot
         cp -f $rootfs/boot/initrd.img-$ver /tmp/work/iso/boot
+        echo "menuentry \"Install $dist ($ver)\" {" >> $grub
+        echo "    linux /boot/vmlinuz-$ver boot=live init=/install" >> $grub
+        echo "    initrd /boot/initrd.img-$ver" >> $grub
+        echo "}" >> $grub
         echo "menuentry \"$dist ($ver)\" {" >> $grub
         echo "    linux /boot/vmlinuz-$ver boot=live live-config quiet splash" >> $grub
         echo "    initrd /boot/initrd.img-$ver" >> $grub
