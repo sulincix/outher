@@ -10,9 +10,11 @@ if read -n 1 -t 3 -s ; then
     nano /etc/install.conf
 fi
 source /etc/install.conf
-mount -t devtmpfs devtmpfs /dev || true
-mount -t proc proc /proc || true
-mount -t sysfs sysfs /sys || true
+if [[ $$ -eq 0 ]] ; then
+    mount -t devtmpfs devtmpfs /dev || true
+    mount -t proc proc /proc || true
+    mount -t sysfs sysfs /sys || true
+fi
 mkdir /source /target || true
 mount /dev/loop0 /source || true
 fallback(){
