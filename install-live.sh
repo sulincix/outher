@@ -101,7 +101,7 @@ fi
 chroot /target apt-get purge live-boot* live-config* live-tools --yes || true
 chroot /target apt-get autoremove --yes || true
 chroot /target update-initramfs -u -k all  || fallback
-chroot /target useradd -m $username || fallback
+chroot /target useradd -m -s /bin/bash $username || fallback
 mkdir /target/home/$username || true
 chroot /target chown $username /home/$username
 echo -e "$password\n$password\n" | chroot /target passwd $username
