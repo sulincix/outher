@@ -43,7 +43,7 @@ chmod +x $rootfs/install
 chroot $rootfs apt install curl nano rsync parted grub-pc-bin grub-efi dosfstools -y
 
 #clear rootfs
-find -type f $rootfs/var/log | xargs rm -f
+find $rootfs/var/log -type f | xargs rm -f
 chroot $rootfs apt clean -y
 
 #create squashfs
