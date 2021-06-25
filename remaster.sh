@@ -9,6 +9,7 @@ mkdir -p /tmp/work/source /tmp/work/a /tmp/work/b /tmp/work/target /tmp/work/emp
 touch /tmp/work/empty-file
 umount -v -lf -R /tmp/work/* || true
 mount --bind / /tmp/work/source
+mount -t tmpfs tmpfs /tmp || true
 mount -t overlay -o lowerdir=/tmp/work/source,upperdir=/tmp/work/a,workdir=/tmp/work/b overlay /tmp/work/target
 
 #resolv.conf fix
@@ -46,19 +47,19 @@ find -type f $rootfs/var/log | xargs rm -f
 chroot $rootfs apt clean -y
 
 #create squashfs
-if [[ ! -f /tmp/work/iso/live/filesystem.squashfs ]] ; then
-    mksquashfs $rootfs /tmp/work/iso/live/filesystem.squashfs -comp gzip -wildcards
+if [[ ! -f iso/live/filesystem.squashfs ]] ; then
+    mksquashfs $rootfs iso/live/filesystem.squashfs -comp gzip -wildcards
 fi
 
 #write grub file
-grub=/tmp/work/iso/boot/grub/grub.cfg
+grub=iso/boot/grub/grub.cfg
 echo "insmod all_video" > $grub
 dist=$(cat /etc/os-release | grep ^PRETTY_NAME | cut -f 2 -d '=' | head -n 1 | sed 's/\"//g')
 for k in $(ls /boot/vmlinuz-*) ; do
     ver=$(echo $k | sed "s/.*vmlinuz-//g")
     if [[ -f /boot/initrd.img-$ver ]] ; then
-        cp -f $rootfs/boot/vmlinuz-$ver /tmp/work/iso/boot
-        cp -f $rootfs/boot/initrd.img-$ver /tmp/work/iso/boot
+        cp -f $rootfs/boot/vmlinuz-$ver iso/boot
+        cp -f $rootfs/boot/initrd.img-$ver iso/boot
         echo "menuentry \"Install $dist ($ver)\" {" >> $grub
         echo "    linux /boot/vmlinuz-$ver boot=live init=/install" >> $grub
         echo "    initrd /boot/initrd.img-$ver" >> $grub
@@ -74,6 +75,6 @@ done
 umount -v -lf -R /tmp/work/* || true
 
 # create iso
-grub-mkrescue /tmp/work/iso/ -o ./live-image-$(date +%s).iso
+grub-mkrescue iso/ -o ./live-image-$(date +%s).iso
 
 
