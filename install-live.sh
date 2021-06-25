@@ -53,7 +53,7 @@ if [[ "$partitioning" == "true" ]] ; then
         mkdir -p /target/boot/efi || true
         mount /dev/${DISK}1 /target/boot/efi  || fallback
         export rootfs=${DIST}2
-        export efifs==${DIST}1
+        export efifs=${DIST}1
     else
         yes | parted /dev/${DISK} mktable msdos || fallback
         yes | parted /dev/${DISK} mkpart primary fat32 1 "100%" || fallback
