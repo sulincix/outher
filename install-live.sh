@@ -33,7 +33,7 @@ fallback(){
 }
 
 if [[ "$debug" != "false" ]] ; then
-    /bin/bash
+    PS1="\[\033[32;1m\]>>>\[\033[;0m\]" /bin/bash --norc --noprofile
 fi
 
 if [[ "$partitioning" == "true" ]] ; then
@@ -52,8 +52,6 @@ if [[ "$partitioning" == "true" ]] ; then
         mount /dev/${DISK}2  /target || fallback
         mkdir -p /target/boot/efi || true
         mount /dev/${DISK}1 /target/boot/efi  || fallback
-        export rootfs=${DIST}2
-        export efifs=${DIST}1
     else
         yes | parted /dev/${DISK} mktable msdos || fallback
         yes | parted /dev/${DISK} mkpart primary fat32 1 "100%" || fallback
@@ -62,8 +60,6 @@ if [[ "$partitioning" == "true" ]] ; then
         yes | parted /dev/${DISK} set 1 boot on || fallback
         sync && sleep 1
         mount /dev/${DISK}1 /target  || fallback
-        export rootfs=${DIST}1
-        export efifs=""
     fi
 else
     echo "Please input rootfs part (example sda2)"
@@ -77,16 +73,21 @@ else
         mkdir -p /target/boot/efi
         mount /dev/$efifs /target/boot/efi
     fi
-    export rootfs
-    export efifs
 fi
 #rsync -avhHAX /source/ /target
 ls /source/ | xargs -n1 -P$(nproc) -I% rsync -avhHAX /source/% /target/  || fallback
-if [[ -d /sys/firmware/efi ]] ; then
-    echo "/dev/$rootfs /               ext4    errors=remount-ro        0       1" > /target/etc/fstab  || fallback
-    echo "/dev/$efifs /boot/efi       vfat    umask=0077               0       1" >> /target/etc/fstab  || fallback
+
+if [[ "$partitioning" == "true" ]] ; then
+    if [[ -d /sys/firmware/efi ]] ; then
+        echo "/dev/$rootfs /               ext4    errors=remount-ro        0       1" > /target/etc/fstab  || fallback
+        echo "/dev/$efifs /boot/efi       vfat    umask=0077               0       1" >> /target/etc/fstab  || fallback
+    else
+        echo "/dev/$rootfs /               ext4    errors=remount-ro        0       1" > /target/etc/fstab  || fallback
+    fi
 else
-    echo "/dev/$rootfs /               ext4    errors=remount-ro        0       1" > /target/etc/fstab  || fallback
+    echo "Please write fstab file. Press any key to open editor."
+    read -n 1 -s
+    nano /target/etc/fstab
 fi
 
 for i in dev sys proc run 
@@ -120,7 +121,7 @@ umount -f -R /target/* || true
 sync  || fallback
 
 if [[ "$debug" != "false" ]] ; then
-    /bin/bash
+    PS1="\[\033[32;1m\]>>>\[\033[;0m\]" /bin/bash --norc --noprofile
 else
     echo "Installation done. System restarting in 10 seconds. Press any key to restart immediately."
     read -t 10 -n 1 -s
