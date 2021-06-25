@@ -54,6 +54,8 @@ fi
 #write grub file
 grub=iso/boot/grub/grub.cfg
 echo "insmod all_video" > $grub
+echo "set timeout=3" >> $grub
+echo "set timeout_style=menu" >> $grub
 dist=$(cat /etc/os-release | grep ^PRETTY_NAME | cut -f 2 -d '=' | head -n 1 | sed 's/\"//g')
 for k in $(ls /boot/vmlinuz-*) ; do
     ver=$(echo $k | sed "s/.*vmlinuz-//g")
