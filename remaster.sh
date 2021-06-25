@@ -38,7 +38,7 @@ mount --bind /tmp/work/empty-file $rootfs/etc/fstab
 
 #integrate installer (automated installer)
 curl https://gitlab.com/sulincix/outher/-/raw/gh-pages/install-live.sh > $rootfs/install
-chmod +x $rootfs/installer
+chmod +x $rootfs/install
 chroot $rootfs apt install rsync parted grub-pc-bin grub-efi dosfstools -y
 
 #clear rootfs
