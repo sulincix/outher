@@ -1,4 +1,5 @@
 #!/bin/bash
+set -x
 export PATH=/usr/bin:/usr/sbin:/bin:/sbin
 echo "export DISK=sda" > /etc/install.conf
 echo "export username=admin" >> /etc/install.conf
@@ -64,13 +65,13 @@ fi
 chroot /target apt-get purge live-boot* live-config* live-tools --yes || true
 chroot /target apt-get autoremove --yes || true
 chroot /target update-initramfs -u -k all  || fallback
-chroot /target useradd -m $username
+chroot /target useradd -m $username || fallback
 mkdir /target/home/$username || true
 chroot /target chown $username /home/$username
 echo -e "$password\n$password\n" | chroot /target passwd $username
 #echo -e "$password\n$password\n" | chroot /target passwd root
 for grp in cdrom floppy sudo audio dip video plugdev netdev bluetooth lpadmin scanner ; do
-    chroot /target usermod -aG $grp $username
+    chroot /target usermod -aG $grp $username || true
 done
 if [[ -d /sys/firmware/efi ]] ; then
     chroot /target grub-install /dev/${DISK} --target=x86_64-efi || fallback
@@ -79,7 +80,7 @@ else
 fi
 echo "GRUB_DISABLE_OS_PROBER=true" >> /target/etc/default/grub
 chroot /target update-grub  || fallback
-[[ -f /target/install ]] && rm -f /target/install
+[[ -f /target/install ]] && rm -f /target/install || true
 umount -f -R /target/* || true
 sync  || fallback
 echo "Installation done. System restarting in 10 seconds. Press any key to restart immediately."
