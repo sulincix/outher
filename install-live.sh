@@ -1,17 +1,13 @@
 #!/bin/bash
-export DISK=sda
-export username=user
-export password=pass
+echo "export DISK=sda" > /etc/install.conf
+echo "export username=admin" >> /etc/install.conf
+echo "export password=1" >> /etc/install.conf
 echo "If you press any key in 3 seconds, switch to edit mode"
 echo "Waiting 3 seconds..."
-if timeout 3 bash -c "read -n 1" ; then
-    echo "Please input target disk: (example sda)"
-    read DISK
-    echo "Please input username: (example user)"
-    read username
-    echo "Please input password: (example abc123)"
-    read password
+if read -n 1 -t 3 -s ; then
+    nano /etc/install.conf
 fi
+source /etc/install.conf
 mount -t devtmpfs devtmpfs /dev || true
 mount -t proc proc /proc || true
 mount -t sysfs sysfs /sys || true
@@ -84,5 +80,5 @@ chroot /target update-grub  || fallback
 umount -f -R /target/* || true
 sync  || fallback
 echo "Installation done. System restarting in 10 seconds. Press any key to restart immediately."
-timeout 10 read -n 1
+reat -t 10 -n 1 -s
 echo b > /proc/sysrq-trigger
