@@ -17,7 +17,7 @@ mount /dev/loop0 /source || true
 fallback(){
         echo -e "\033[31;1mInstallation failed.\033[;0m"
         echo -e "Creating a shell for debuging. Good luck :D"
-        PS1="\[\033[32;1m\]>>>\[\033[1m\]" /bin/bash --norc --noprofile
+        PS1="\[\033[32;1m\]>>>\[\033[;1m\]" /bin/bash --norc --noprofile
         if [[ $$ -eq 0 ]] ; then
             echo o > /proc/sysrq-trigger
         else
