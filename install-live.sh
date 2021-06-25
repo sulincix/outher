@@ -4,7 +4,7 @@ export username=user
 export password=pass
 echo "If you press any key in 3 seconds, switch to edit mode"
 echo "Waiting 3 seconds..."
-if timeout 3 sh -c "read -n 1" ; then
+if timeout 3 bash -c "read -n 1" ; then
     echo "Please input target disk: (example sda)"
     read DISK
     echo "Please input username: (example user)"
